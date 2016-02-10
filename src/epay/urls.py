@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from epay.views import epay_js_view, charge_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^epay.js$', epay_js_view),
+    url(r'^charge/(?P<product_slug>.+)/$', charge_view, name='charge')
 ]
