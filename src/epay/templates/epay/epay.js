@@ -21,7 +21,7 @@ var epay = epay || {};
             image: "/square-image.png",
             token: function(token, args) {
                 $.ajax({
-                    url: "http://localhost:50856/charge/" + product + "/",
+                    url: "/charge/" + product + "/",
                     type: "POST",
                     dataType: 'json',
                     //contentType: "application/json; charset=utf-8",

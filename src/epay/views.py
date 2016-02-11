@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.conf import settings
 from epay import models
+import json
 import stripe
 
 
@@ -12,7 +13,7 @@ def epay_js_view(request):
 def get_product_data(key):
     ## TODO: Think about how to retrieve product information when
     #        we can use the local database or a remote API, etc.
-    get_object_or_404(models.Product, slug=product_key)
+    return get_object_or_404(models.Product, slug=key)
 
 
 @csrf_exempt
@@ -22,7 +23,7 @@ def charge_view(request, product_slug=None):
 
     stripe_token = request.POST['token[id]']
     stripe_email = request.POST['token[email]']
-    stripe.api_key = settings.STRIPE_SECRET_KEY
+    stripe.api_key = settings.STRIPE_SECRET_TOKEN
 
     product = get_product_data(product_slug)
 
@@ -60,4 +61,4 @@ def charge_view(request, product_slug=None):
         ## TODO: Should we log transactions?
 
     return HttpResponse(json.dumps(response_data),
-                        mime_type='application/json')
+                        content_type='application/json')
