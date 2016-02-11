@@ -1,21 +1,25 @@
 <html>
-  <head>
+<head>
     <title>Street Closure Permit</title>
-  </head>
+</head>
 
-  <body>
-    <p>Pay for a Street Closure Permit</p>
+<body>
+<p>Pay for a Street Closure Permit</p>
 
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
-    <button id="customButton">Click Here</button>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<button id="customButton">Click Here</button>
+<div class="messages"></div>
 
-    <script src="http://localhost:8000/epay.js"></script>
-    <script>
-      epay.initPaymentForm({
-        product: 'street-closure-permit'
-      });
-    </script>
-  </body>
+<script src="http://localhost:8000/epay.js"></script>
+<script>
+    epay.initPaymentForm({
+        product: 'street-closure-permit',
+        success: function(data) {
+            $('.messages').html('We successfully charged your card ending in ' + data.last4 + 'for $' + data.amount + '.');
+        }
+    });
+</script>
+</body>
 </html>
