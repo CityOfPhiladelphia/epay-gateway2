@@ -16,6 +16,37 @@ def get_product_data(key):
     return get_object_or_404(models.Product, slug=key)
 
 
+# API Views
+# ~~~~~~~~~
+
+"""
+/invoice
+
+    POST
+    ----
+    Create a new invoice.
+
+/pay
+
+    POST
+    ----
+    Pay an existing invoice
+
+/invoice-and-pay
+
+    POST
+    ----
+    Create a new invoice and pay it.
+
+/invoice/:id
+
+    GET
+    ---
+    Retrieve the status and amount paid on an invoice.
+
+"""
+
+
 @csrf_exempt
 def charge_view(request, product_slug=None):
     if request.method not in ['POST']:
