@@ -79,8 +79,11 @@ WSGI_APPLICATION = 'epay.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.environ.get('DEFAULT_DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'ENGINE': os.environ.get('DEFAULT_DB_ENGINE', 'django.db.backends.sqlite3'),
+        'HOST': os.environ.get('DEFAULT_DB_HOST'),
+        'USER': os.environ.get('DEFAULT_DB_USER'),
+        'PASSWORD': os.environ.get('DEFAULT_DB_PASSWORD'),
     }
 }
 
